@@ -319,7 +319,7 @@ class Standard_FunctionTest extends Standard_Abstract
         }
 
         $datetime = '2008-01-01 00:00:00';
-        $expected = 1199163600;
+        $expected = strtotime('2008-01-01 00:00:00');
 
         $quoted_dt = $this->db->quote($datetime, 'timestamp');
         $this->db->pushErrorHandling(PEAR_ERROR_RETURN);

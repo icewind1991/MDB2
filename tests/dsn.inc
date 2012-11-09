@@ -273,6 +273,31 @@ if (!in_array('sqlite', $skip)
     }
 }
 
+// SQLite3 is different.  Runs using :memory: table even if variable is not set.
+if (!in_array('sqlite3', $skip)
+    && is_driver_available('sqlite3') && extension_loaded('sqlite3'))
+{
+    if (empty($_ENV['SQLITE_TEST_DB'])) {
+        $dsns['sqlite3'] = array(
+            'dsn' => array(
+                'phptype' => 'sqlite3',
+                'database' => ':memory:',
+            ),
+            'options' => array(
+            ),
+        );
+    } else {
+        $dsns['sqlite3'] = array(
+            'dsn' => array(
+                'phptype' => 'sqlite3',
+                'database' => $_ENV['SQLITE_TEST_DB'],
+            ),
+            'options' => array(
+            ),
+        );
+    }
+}
+
 if (!empty($_ENV['SQLSRV_TEST_USER']) && !in_array('sqlsrv', $skip)
     && is_driver_available('sqlsrv') && extension_loaded('sqlsrv'))
 {
